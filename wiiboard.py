@@ -205,7 +205,10 @@ class Wiiboard:
 
 				elif intype == EXTENSION_8BYTES:
 					self.lastEvent = self.createBoardEvent(data[2:12], timeVar)
-					pygame.event.post(pygame.event.Event(WIIBOARD_MASS, mass=self.lastEvent))
+					try:
+						pygame.event.post(pygame.event.Event(WIIBOARD_MASS, mass=self.lastEvent))
+					except pygame.error, e:
+						pass
 
 				else:
 					print "ACK to data write received"

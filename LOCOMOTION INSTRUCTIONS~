@@ -1,0 +1,27 @@
+
+
+LOCOMOTION EXPERIMENTAL INSTRUCTIONS 9.19.2017
+----
+
+0. Have the wiiboard out, flipped over, with battery cover off, and have the red sync button visible.
+
+1. Have a terminal open and navigated to ~/Desktop/locomotion
+	1a. (If terminal has been closed, open a new instance of Terminal via clicking the terminal icon on the desktop. Type "cd Desktop/locomotion" (without quotations) and hit enter. You now have a terminal navigated to the appropriate directory.
+
+2. Start the Python Data Recording by typing "python runExperiment.py"
+	2a. You can do this faster by typing "python run" and hitting tab to autocomplete the filename.
+
+3. Enter the filename in the format: " TO DO ". Do not forget to add .csv at the end of the filename.
+
+
+4. Quickly press the Red sYnc button on the back of the wiiboard after you hit enter to enter the file name.
+
+5. The terminal should read "Found Wiiboard at address ...."
+			    "Connected to Wiiboard at address ..."
+
+6. Have participant step on board with headset on
+7. Press corresponding profile key on Unity, this will start Python recording for 120 seconds.
+8. Recording will stop automatically after 120 seconds, after which have participant step off board, remove headset for 2 min break
+
+
+

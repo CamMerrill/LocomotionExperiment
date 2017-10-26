@@ -26,7 +26,7 @@ def main():
     	    while (not done):
                 #.0125 80 hz
                 # .025 40 hz
-    	        #time.sleep(0.025)
+    	        time.sleep(0.025)
 	        for event in pygame.event.get():
                     #timeVar = time.time()
 		    if event.type == wiiboard.WIIBOARD_MASS:
@@ -51,12 +51,12 @@ def main():
                             copX = copX / (TR+BR+TL+BL)
                             copY = (boardWidth/2)*((TR+TL)-(BR+BL))
                             copY = copY / (TR+BR+TL+BL)
-                           # '''
-                            if timeVar-prevTime >= .0125:
+                            
+                            if timeVar-prevTime >= .017:
                                 writer.writerow([copX, copY,timeVar])
                                 prevTime = timeVar
-                           # '''
-                           # writer.writerow([copX, copY, timeVar])
+                            
+                            #writer.writerow([copX, copY, timeVar])
 
 
                             if time.time()-initialTime >= 121:

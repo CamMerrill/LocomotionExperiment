@@ -24,4 +24,10 @@ LOCOMOTION EXPERIMENTAL INSTRUCTIONS 9.19.2017
 8. Recording will stop automatically after 120 seconds, after which have participant step off board, remove headset for 2 min break
 
 
+Naming Convention:
 
+subjectNumber-effect.csv
+ex"
+1-A.csv
+For control: do
+1-A-control.csv
