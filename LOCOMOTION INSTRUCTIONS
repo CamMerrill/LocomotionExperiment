@@ -11,7 +11,8 @@ LOCOMOTION EXPERIMENTAL INSTRUCTIONS 9.19.2017
 2. Start the Python Data Recording by typing "python runExperiment.py"
 	2a. You can do this faster by typing "python run" and hitting tab to autocomplete the filename.
 
-3. Enter the filename in the format: " TO DO ". Do not forget to add .csv at the end of the filename.
+3. Enter the filename in the format: " TO DO ". Do not forget to add .csv at the end of the filename.ls
+
 
 
 4. Quickly press the Red sYnc button on the back of the wiiboard after you hit enter to enter the file name.
@@ -31,3 +32,32 @@ ex"
 1-A.csv
 For control: do
 1-A-control.csv
+
+
+
+ERROR CONTROL:
+
+If you get this error:
+Traceback (most recent call last):
+  File "runExperiment.py", line 81, in <module>
+    main()
+  File "runExperiment.py", line 14, in main
+    board.connect(address) #The wii board must be in sync mode at this time
+  File "/home/acrl/Desktop/locomotion/wiiboard.py", line 97, in connect
+    unityListen()
+  File "/home/acrl/Desktop/locomotion/unityListener.py", line 10, in unityListen
+    recvSock.bind((UDP_IP, UDP_RECV_UNITY_PORT))
+  File "/usr/lib/python2.7/socket.py", line 224, in meth
+    return getattr(self._sock,name)(*args)
+
+When connecting the Wii Board, run the following command:
+lsof -i:25006
+
+And then run:
+sudo kill -9 PID
+
+Where PID is from the result of the lsof command.
+
+
+SUDO PASSWORD: crossroads
+
