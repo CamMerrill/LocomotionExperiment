@@ -22,23 +22,32 @@ files = filesPruned
 
 #for each file we need an I and O
 
+masterFile = open("master-cop.csv", 'w')
+masterFile.write("FileName, Total X, Total Y, Total D, Total T, Samples\n")
+
 for item in files:
 	itemName = item.split(".")[0]
 	inputFile = open("Logs/" + item, 'r')
 	outputFile = open("Logs/Parsed/" + itemName + "-parsed.csv", 'w')
-	outputFile.write("hi")
+	outputFile.write("X Pos, Y Pos, Time, dT, dX Pos, dY Pos,,Samples, Total X, Total Y, Total Time, Total D+\n")
+	count = 0
+	totalX = 0
+	totalY = 0
+	totalT = 0
+	for line in inputFile:
+		lineSplit = line.split(" ")
+		lineX = float(lineSplit[0])
+		lineY = float(lineSplit[1])
+		lineT = float(lineSplit[2])
+		if count != 0:
+			totalX = totalX + abs(lineX - prevX)
+			totalY = totalY + abs(lineY - prevY)
+			totalT = totalT + abs(lineT - prevT)
+		prevX = float(lineSplit[0])
+		prevY = float(lineSplit[1])
+		prevT = float(lineSplit[2])
+		count = count + 1
 	
-
-	
-
-
-
-
-
-
-
-
-
-
-
+	outputFile.write("X Pos, Y Pos, Time, dT, dX Pos, dY Pos,," + str(count) + "," + str(totalX) + "," + str(totalY) + "," + str(totalT) + "," + str(totalX+totalX))
+	masterFile.write(item.split(".")[0] + "," + str(totalX) + "," + str(totalY) + "," + str(totalX + totalY) + "," + str(totalT) + "," + str(count) + "\n")
 
