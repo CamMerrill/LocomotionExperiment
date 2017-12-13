@@ -23,7 +23,7 @@ files = filesPruned
 #for each file we need an I and O
 
 masterFile = open("master-cop-eucl.csv", 'w')
-masterFile.write("FileName, Total X, Total Y, Total D, Total T, Distance, Samples\n")
+masterFile.write("FileName, Total X, Total Y, Total D, Total T, Eucl Distance, Eucl X, Eucl Y, Samples\n")
 
 for item in files:
 	itemName = item.split(".")[0]
@@ -34,7 +34,9 @@ for item in files:
 	totalX = 0
 	totalY = 0
 	totalT = 0
-	totalD = 0
+	euclD = 0
+	euclY = 0
+	euclX = 0
 	for line in inputFile:
 		lineSplit = line.split(" ")
 		lineX = float(lineSplit[0])
@@ -46,12 +48,12 @@ for item in files:
 			totalT = totalT + abs(lineT - prevT)
 			x_valu = abs(lineX - prevX)
 			y_valu = abs(lineY - prevY)
-			totalD = totalD + math.sqrt(math.pow(x_valu,2) + math.pow(y_valu,2))
+			euclD = euclD + math.sqrt(math.pow(x_valu,2) + math.pow(y_valu,2))
 		prevX = float(lineSplit[0])
 		prevY = float(lineSplit[1])
 		prevT = float(lineSplit[2])
 		count = count + 1
 	
 	outputFile.write("X Pos, Y Pos, Time, dT, dX Pos, dY Pos,," + str(count) + "," + str(totalX) + "," + str(totalY) + "," + str(totalT) + "," + str(totalX+totalX))
-	masterFile.write(item.split(".")[0] + "," + str(totalX) + "," + str(totalY) + "," + str(totalX + totalY) + "," + str(totalT) + "," + str(totalD) + "," + str(count) + "\n")
+	masterFile.write(item.split(".")[0] + "," + str(totalX) + "," + str(totalY) + "," + str(totalX + totalY) + "," + str(totalT) + "," + str(euclD) + "," + str(euclX) + "," + str(euclY) + "," + str(count) + "\n")
 
