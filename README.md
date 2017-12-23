@@ -1,3 +1,0 @@
-# LocomotionExperiment
-
-todo: readme lol
