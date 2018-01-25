@@ -3,9 +3,22 @@ from os import walk
 import math
 import statistics
 import numpy as np
+from statsmodels import robust
 
 #We need to import the raw data from logs again to prune for outliers
 
+def mad(arr):
+        """
+            Median Absolute Deviation: a "Robust" version of standard deviation.
+            Indices variabililty of the sample.
+            https://en.wikipedia.org/wiki/Median_absolute_deviation 
+        """
+
+        arr = np.ma.array(arr).compressed() # should be faster to not use masked arrays.
+        med = np.median(arr)
+        return np.median(np.abs(arr - med))
+
+    
 
 
 def outliers_modified_z_score(ys):
@@ -24,6 +37,7 @@ def outliers_iqr(ys):
         print(lower_bound, upper_bound)
         return np.where((ys > upper_bound))
 
+agFile = open("Removed/Aggregate.csv",'w')
 files = []
 for (dirpath, dirnames, filenames) in walk('../Logs'): #DIRECTORY SPECIFIC!
     files.extend(filenames)
@@ -38,7 +52,7 @@ files = filesPruned
 #Alright we know have a list of all csv files in the Logs directory.
 #First, we need to traverse the file to find mean, and std deviation for a given trial
 
-files = ["11-A.csv"]
+#files = ["1-A-baseline.csv"]
 for item in files:
     itemName = item.split(".")[0]
     inputFile = open("../Logs/" + item, 'r')
@@ -78,27 +92,25 @@ for item in files:
         yList.append(lineY)
         #print cause lazy
         count += 1
+    count = 0
+    outlierCount = 0
+    outlier20Count = 0
+    outliers = []
+    for item in xDistList:
+        if item > 35:
+            outlierCount = outlierCount + 1
+            outliers.append(count)
+        count += 1
+    agFile.write(itemName + "," + str(outlierCount) + "\n")
+    for item in outliers:
+        xList[item] = 99
+        yList[item] = 99
+    outFile = open("Removed/" + itemName + "-out.csv", 'w')
+    count = 0
+    for item in xList:
+        if item != 99:
+            outFile.write(str(xList[count]) + "," + str(yList[count])+"\n")
+        count = count + 1
 
-            
-
-
-print("File: " + itemName)
-print("Total X: " + str(totalX))
-print("Total Y: " + str(totalY))
-
-#NOW WE NEED TO DO +/- 3 STD DEVIATIONS AND REMOVEEEEE THEM
-#SAMPLE STANDARD DEVIATION
-x_result = outliers_modified_z_score(xList)
-y_result = outliers_modified_z_score(yList)
-union = set(x_result[0]).union(y_result[0])
-print(union)
-for item in union:
-    print(euclList[item])
-for item in union:
-    xList.pop(item)
-    yList.pop(item)
-
-print(len(xList))
-print(len(yList))
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
