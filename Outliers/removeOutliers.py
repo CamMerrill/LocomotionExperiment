@@ -37,9 +37,9 @@ def outliers_iqr(ys):
         print(lower_bound, upper_bound)
         return np.where((ys > upper_bound))
 
-agFile = open("Removed/Aggregate.csv",'w')
+agFile = open("Rotations-Removed/Aggregate-Rotations.csv",'w')
 files = []
-for (dirpath, dirnames, filenames) in walk('../Logs'): #DIRECTORY SPECIFIC!
+for (dirpath, dirnames, filenames) in walk('../Rotations/Data/Logs'): #DIRECTORY SPECIFIC!
     files.extend(filenames)
     break
 filesPruned = []
@@ -55,7 +55,7 @@ files = filesPruned
 #files = ["1-A-baseline.csv"]
 for item in files:
     itemName = item.split(".")[0]
-    inputFile = open("../Logs/" + item, 'r')
+    inputFile = open("../Rotations/Data/Logs/" + item, 'r')
     #outputFile = open("Logs/Parsed/" + itemName + "-outliers-pruned.csv", 'w')
     count = 0
     #Lets total the values up again, probably useful
@@ -97,7 +97,7 @@ for item in files:
     outlier20Count = 0
     outliers = []
     for item in xDistList:
-        if item > 35:
+        if item > 50:
             outlierCount = outlierCount + 1
             outliers.append(count)
         count += 1
@@ -105,7 +105,7 @@ for item in files:
     for item in outliers:
         xList[item] = 99
         yList[item] = 99
-    outFile = open("Removed/" + itemName + "-out.csv", 'w')
+    outFile = open("Rotations-Removed/" + itemName + "-out.csv", 'w')
     count = 0
     for item in xList:
         if item != 99:
