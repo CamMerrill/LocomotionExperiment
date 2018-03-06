@@ -5,7 +5,7 @@ import numpy as np
 from statsmodels import robust
 
 files = []
-for (dirpath,dirnames, filenames) in walk('Removed/'):
+for (dirpath,dirnames, filenames) in walk('Rotations-Removed/'):
     files.extend(filenames)
     break
 filesPruned = []
@@ -14,10 +14,10 @@ for item in files:
     if splitItem[1] == "csv":
         filesPruned.append(item)
 files = filesPruned
-outFile = open("catalog.csv", 'w')
+outFile = open("catalog-rot.csv", 'w')
 for item in files:
     itemName = item.split(".")[0]
-    inputFile = open("Removed/"+ item, 'r')
+    inputFile = open("Rotations-Removed/"+ item, 'r')
     count = 0
     totalX = 0
     totalY = 0
@@ -28,6 +28,7 @@ for item in files:
     xList = []
     yList = []
     euclList = []
+    print(item)
     for line in inputFile:
         lineSplit = line.split(",")
         lineX = float(lineSplit[0])

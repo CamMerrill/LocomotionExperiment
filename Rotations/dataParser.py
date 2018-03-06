@@ -6,7 +6,7 @@ import math
 #Each trial is stored individually, so we need to get all the files in the Log directory.
 
 files = []
-for (dirpath, dirnames, filenames) in walk('Logs'):
+for (dirpath, dirnames, filenames) in walk('Data/Logs'):
 	files.extend(filenames)
 	break
 
@@ -22,7 +22,7 @@ files = filesPruned
 
 #for each file we need an I and O
 
-masterFile = open("master-cop-eucl.csv", 'w')
+masterFile = open("master-rotations.csv", 'w')
 masterFile.write("FileName, Total X, Total Y, Total D, Total T, Eucl Distance, Eucl X, Eucl Y, Samples\n")
 
 for item in files:
